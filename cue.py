@@ -136,11 +136,11 @@ class Cue(pygame.sprite.Sprite):
         prev_angle = self.angle
         # hack to avoid div by zero
         if not displacement_from_ball_to_mouse[0] == 0:
-            #self.angle = -.5 #CALL FUNCTION HERE
-            self.angle = 0.5 * math.pi - math.atan(
-                displacement_from_ball_to_mouse[1] / displacement_from_ball_to_mouse[0])
-            if displacement_from_ball_to_mouse[0] > 0:
-                self.angle -= math.pi
+            self.angle = -.5 #CALL FUNCTION HERE
+            #self.angle = 0.5 * math.pi - math.atan(
+            #    displacement_from_ball_to_mouse[1] / displacement_from_ball_to_mouse[0])
+            #if displacement_from_ball_to_mouse[0] > 0:
+            #    self.angle -= math.pi
 
         game_state.redraw_all(update=False)
         self.draw_lines(game_state, self.target_ball, prev_angle +
