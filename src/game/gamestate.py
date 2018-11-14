@@ -41,7 +41,7 @@ class GameState:
 
 	def mark_one_frame(self):
 		self.fps_clock.tick(2000)
-		print(self.fps_clock.get_fps())
+		#print(self.fps_clock.get_fps())
 
 	def create_white_ball(self):
 		self.white_ball = ball.BallSprite(0)
