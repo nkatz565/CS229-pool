@@ -15,6 +15,7 @@ import graphics
 import table_sprites
 from ball import BallType
 from collisions import check_if_ball_touches_balls
+from pprint import pprint
 
 
 class Player(Enum):
@@ -41,7 +42,7 @@ class GameState:
 
 	def mark_one_frame(self):
 		self.fps_clock.tick(2000)
-		print(self.fps_clock.get_fps())
+		#print(self.fps_clock.get_fps())
 
 	def create_white_ball(self):
 		self.white_ball = ball.BallSprite(0)
@@ -311,13 +312,13 @@ class GameState:
 	def return_game_state(self):
 		state = InterState()
 		state.balls=[]
-		
-		for i in range(0, 15):
-			currentBall = BallState
+		for i in range(0, len(self.balls.sprites())):
+			currentBall = BallState()
 			currentBall.num = self.balls.sprites()[i].number
 			currentBall.type = self.balls.sprites()[i].ball_type_custom
 			currentBall.x = self.balls.sprites()[i].ball.pos[0]
 			currentBall.y = self.balls.sprites()[i].ball.pos[1]
 			state.balls.append(currentBall)
+
 		return state
 		

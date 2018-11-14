@@ -24,7 +24,8 @@ while not was_closed:
 		if game.all_not_moving():
 			game.redraw_all()
 			#game.redraw_all_no_gphx() #YOU CAN UNCOMMENT THIS, BUT IT ONLY RUNS ONCE SO ITS NOT A BIG DEAL
-			#pprint(vars((game.return_game_state().balls[0])))
+			pprint(vars((game.return_game_state().balls[0])))
+			pprint(vars((game.return_game_state().balls[1])))
 			game.check_pool_rules()
 			game.cue.make_visible(game.current_player)
 			while not (
