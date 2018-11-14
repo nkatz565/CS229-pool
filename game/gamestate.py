@@ -7,14 +7,14 @@ import numpy as np
 import pygame
 import zope.event
 
-import ball
-import config
-import cue
-import event
-import graphics
-import table_sprites
-from ball import BallType
-from collisions import check_if_ball_touches_balls
+from . import ball
+from . import config
+from . import cue
+from . import event
+from . import graphics
+from . import table_sprites
+from .ball import BallType
+from .collisions import check_if_ball_touches_balls
 
 
 class Player(Enum):
