@@ -3,9 +3,9 @@ import random
 
 import zope.event
 
-import config
-import event
-import physics
+from . import config
+from . import event
+from . import physics
 
 
 def resolve_all_collisions(balls, holes, table_sides):

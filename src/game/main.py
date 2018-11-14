@@ -1,11 +1,11 @@
 import pygame
 from pprint import pprint
 
-import collisions
-import event
-import gamestate
-import graphics
-import config
+from . import collisions
+from . import event
+from . import gamestate
+from . import graphics
+from . import config
 
 was_closed = False
 while not was_closed:

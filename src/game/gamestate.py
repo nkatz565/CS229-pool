@@ -7,6 +7,7 @@ import numpy as np
 import pygame
 import zope.event
 
+<<<<<<< HEAD:gamestate.py
 import ball
 import config
 import cue
@@ -16,6 +17,16 @@ import table_sprites
 from ball import BallType
 from collisions import check_if_ball_touches_balls
 from pprint import pprint
+=======
+from . import ball
+from . import config
+from . import cue
+from . import event
+from . import graphics
+from . import table_sprites
+from .ball import BallType
+from .collisions import check_if_ball_touches_balls
+>>>>>>> e144f35ae0acd7fa0c37f712006bd0c130b3f29a:src/game/gamestate.py
 
 
 class Player(Enum):

@@ -1,8 +1,8 @@
 import numpy as np
 import pygame
 
-import config
-import gamestate
+from . import config
+from . import gamestate
 
 
 class Hole(pygame.sprite.Sprite):

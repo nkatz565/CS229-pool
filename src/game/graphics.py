@@ -1,8 +1,8 @@
 import numpy as np
 import pygame
 
-import config
-import event
+from . import config
+from . import event
 
 
 class Canvas:
