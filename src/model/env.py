@@ -123,6 +123,8 @@ class PoolEnv:
         # Init
         self.current_obs = None
         self.current_state = None
+        self.game = None
+        self.events = None
         self.reset()
 
     def set_buckets(self, action=None, state=None):
@@ -132,10 +134,10 @@ class PoolEnv:
             self.state_space.set_buckets(state)
 
     def reset(self):
-        game = gamestate.GameState()
-        game.start_pool()
-        events = event.events()
-        game.redraw_all()
+        self.game = gamestate.GameState()
+        self.game.start_pool()
+        self.events = event.events()
+        self.game.redraw_all()
         
         # TODO: init to initial ball positions in pool game
         self.current_obs = [(0, 0)] * self.num_balls
@@ -145,21 +147,20 @@ class PoolEnv:
     def step(self, action):
         real_action = self.action_space.get_action(action) # deal with discretized action
         
-        game.cue.update_cue_displacement(100)
-        game.cue.update_cue(game, 0, events, 1)
-        game.cue.ball_hit()
+        self.game.cue.update_cue_displacement(100)
+        self.game.cue.update_cue(self.game, 0, self.events, 1)
+        self.game.cue.ball_hit()
         
-        while(not game.all_not_moving()):
-            events = event.events()
-            collisions.resolve_all_collisions(game.balls, game.holes, game.table_sides)
-            game.redraw_all()
-            game.return_game_state()
+        while not self.game.all_not_moving():
+            self.events = event.events()
+            collisions.resolve_all_collisions(self.game.balls, self.game.holes, self.game.table_sides)
+            self.game.redraw_all()
+            self.game.return_game_state()
         
         # TODO: now it's random update, change to real update on pool table
         self.current_state = self.state_space.sample()
         reward = np.random.choice(10) - 5 # [-5, 5]
         return self.current_state, reward, False
-
 
     def mock_experience(self):
         """
