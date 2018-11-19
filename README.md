@@ -14,7 +14,7 @@ $ python -m pip install -r requirements.txt
 $ python -m src.game.main
 
 # Run training, ALGO = q-table | dqn | ac
-$ python -m src.model.train [--balls BALLS] [--algo ALGO] [--visualize]
+$ python -m src.model.train [--balls BALLS] [--algo ALGO] [--visualize] output_model
 ```
 
 ## Problem Formulation
