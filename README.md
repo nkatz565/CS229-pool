@@ -20,6 +20,11 @@ $ python -m src.model.train [--balls BALLS] [--algo ALGO] [--visualize] output_m
 $ python -m src.model.eval [--model MODEL] [--balls BALLS] [--algo ALGO] [--visualize]
 ```
 
+## Tools
+
+- Visualize average rewards over episodes
+    - `$ python -m src.utils.training_rewards_vis INPUT_FILE OUTPUT_FILE`
+
 ## Problem Formulation
 
 - States
