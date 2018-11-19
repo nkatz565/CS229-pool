@@ -43,7 +43,6 @@ def train(env, model_path, episodes=200, episode_length=50):
             action = choose_action(state, q_table, env.action_space, epsilon)
             next_state, reward, done = env.step(action)
             rewards += reward
-            print(rewards)
 
             # Agent learns via Q-learning
             for i in range(len(q_table)):
