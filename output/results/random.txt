@@ -1,0 +1,15 @@
+Episode finished after 50 timesteps, total rewards -48
+Episode finished after 50 timesteps, total rewards -45
+Episode finished after 50 timesteps, total rewards -43
+Episode finished after 50 timesteps, total rewards -48
+Episode finished after 42 timesteps, total rewards -32
+Episode finished after 50 timesteps, total rewards -47
+Episode finished after 50 timesteps, total rewards -49
+Episode finished after 50 timesteps, total rewards -47
+Episode finished after 50 timesteps, total rewards -44
+Episode finished after 50 timesteps, total rewards -44
+Average rewards: -0.9061904761904763
+
+real    2m46.300s
+user    2m43.064s
+sys 0m4.984s
