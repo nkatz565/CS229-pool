@@ -103,3 +103,4 @@ ENV/
 # Others
 .DS_Store
 *.swp
+output/model/
