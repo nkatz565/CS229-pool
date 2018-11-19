@@ -8,7 +8,7 @@ from . import ac
 
 
 EPISODES = 200
-EPISODE_LENGTH = 50
+EPISODE_LENGTH = 200
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='RL training.')
