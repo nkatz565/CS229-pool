@@ -20,10 +20,10 @@ def ball_collision_check(ball1, ball2):
     # distance check followed by checking if either of the balls are moving
     # followed by vector projection check, to see if both are moving towards
     # each other
-	if(distance_less_equal(ball1.pos, ball2.pos, 2 * config.ball_radius)):
-		return  np.count_nonzero(np.concatenate((ball1.velocity, ball2.velocity))) > 0 and \
-				np.dot(ball2.pos - ball1.pos, ball1.velocity - ball2.velocity) > 0
-	return 0   
+    if(distance_less_equal(ball1.pos, ball2.pos, 2 * config.ball_radius)):
+        return  np.count_nonzero(np.concatenate((ball1.velocity, ball2.velocity))) > 0 and \
+                np.dot(ball2.pos - ball1.pos, ball1.velocity - ball2.velocity) > 0
+    return 0   
 
 
 def collide_balls(ball1, ball2):

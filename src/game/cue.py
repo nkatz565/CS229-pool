@@ -67,7 +67,7 @@ class Cue(pygame.sprite.Sprite):
         return rect_area + 1 >= triangle_areas
 
     def update_cue_displacement(self, displacement):
-		#displacement = physics.point_distance(
+        #displacement = physics.point_distance(
             #mouse_pos, self.target_ball.ball.pos) - initial_mouse_dist + config.ball_radius
         if displacement > config.cue_max_displacement:
             self.displacement = config.cue_max_displacement
