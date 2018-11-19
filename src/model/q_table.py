@@ -7,8 +7,7 @@ def choose_action(state, q_table, action_space, epsilon):
     if np.random.random_sample() < epsilon: # random action
         return action_space.sample() 
     else: # greedy action based on Q table
-        a = np.argmax(q_table[state])
-        return action_space.decode(a)
+        return [np.argmax(q_table[i][state]) for i in range(len(q_table))]
 
 def train(env, episodes=200, episode_length=50):
     print('Q-Table training')
@@ -19,7 +18,7 @@ def train(env, episodes=200, episode_length=50):
     # Preparing Q table of size n_states x n_actions
     n_states = env.state_space.n
     n_actions = env.action_space.n
-    q_table = np.zeros((n_states, n_actions))
+    q_table = [np.zeros((n_states, n_a)) for n_a in n_actions] # q_table[i][s] = ai
 
     # Learning related constants; factors should be determined by trial-and-error
     get_epsilon = lambda i: max(0.01, min(1, 1.0 - math.log10((i+1)/25))) # epsilon-greedy, factor to explore randomly; discounted over time
@@ -41,9 +40,9 @@ def train(env, episodes=200, episode_length=50):
             rewards += reward
 
             # Agent learns via Q-learning
-            action = env.action_space.encode(action)
-            q_next_max = np.max(q_table[next_state])
-            q_table[state, action] += lr * (reward + gamma * q_next_max - q_table[state, action])
+            for i in range(len(q_table)):
+                q_next_max = np.max(q_table[i][next_state])
+                q_table[i][state, action[i]] += lr * (reward + gamma * q_next_max - q_table[i][state, action[i]])
 
             # Transition to next state
             state = next_state

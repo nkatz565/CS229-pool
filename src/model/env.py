@@ -14,7 +14,7 @@ class ActionSpace:
     @property
     def n(self):
         if self.is_discrete:
-            return utils.prod(self.buckets)
+            return self.buckets
         else:
             return -1
 
@@ -45,6 +45,9 @@ class ActionSpace:
             return action
 
     def encode(self, action):
+        """
+        Deprecated.
+        """
         t = 1
         encoded_action = 0
         for i, a in enumerate(action):
@@ -53,6 +56,9 @@ class ActionSpace:
         return encoded_action
 
     def decode(self, action):
+        """
+        Deprecated.
+        """
         decoded_action = []
         for bucket in self.buckets:
             decoded_action.append(action % bucket)
