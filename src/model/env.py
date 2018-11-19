@@ -145,5 +145,5 @@ class PoolEnv:
 
         self.current_obs = ball_pos
         self.current_state = self.state_space.get_state(ball_pos)
-        reward = 5 * holes_in + (1 if collision_count > 0 else 0)
+        reward = 5 * holes_in + (0 if collision_count > 0 else -1)
         return self.current_state, reward, done
