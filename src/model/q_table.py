@@ -1,4 +1,5 @@
 import math
+import pickle
 
 import numpy as np
 
@@ -9,7 +10,11 @@ def choose_action(state, q_table, action_space, epsilon):
     else: # greedy action based on Q table
         return [np.argmax(q_table[i][state]) for i in range(len(q_table))]
 
-def train(env, episodes=200, episode_length=50):
+def save_model(filepath, q_table):
+    with open(filepath, 'wb') as fout:
+        pickle.dump(q_table, fout)
+
+def train(env, model_path, episodes=200, episode_length=50):
     print('Q-Table training')
 
     env.set_buckets(action=[18, 5], state=[50, 50])
@@ -38,6 +43,7 @@ def train(env, episodes=200, episode_length=50):
             action = choose_action(state, q_table, env.action_space, epsilon)
             next_state, reward, done = env.step(action)
             rewards += reward
+            print(rewards)
 
             # Agent learns via Q-learning
             for i in range(len(q_table)):
@@ -52,3 +58,5 @@ def train(env, episodes=200, episode_length=50):
                 break
         if not done:
             print('Episode finished after {} timesteps, total rewards {}'.format(episode_length, rewards))
+
+        save_model(model_path, q_table)

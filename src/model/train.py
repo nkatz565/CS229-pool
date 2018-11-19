@@ -7,15 +7,17 @@ from . import dqn
 from . import ac
 
 
-EPISODES = 200
+EPISODES = 200 
 EPISODE_LENGTH = 200
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='RL training.')
+    parser.add_argument('output_model', type=str,
+            help='Output model path. Default: model.pkl')
     parser.add_argument('--algo', type=str, default='q-table',
             help='One of q-table, dqn (Deep Q-Network), or ac (Actor-Critic). Default: q-table')
     parser.add_argument('--balls', type=int, default=2,
-            help='Number of balls on table (including white ball), should be >= 2.')
+            help='Number of balls on table (including white ball), should be >= 2. Default: 2')
     parser.add_argument('--visualize', dest='visualize', action='store_true',
             help='To see the visualization of the pool game.')
     args = parser.parse_args()
@@ -38,4 +40,4 @@ if __name__ == '__main__':
         sys.exit(1)
 
     env = PoolEnv(args.balls, is_discrete=is_discrete, visualize=args.visualize)
-    algo(env, episodes=EPISODES, episode_length=EPISODE_LENGTH)
+    algo(env, args.output_model, episodes=EPISODES, episode_length=EPISODE_LENGTH)
