@@ -327,4 +327,53 @@ class GameState:
 			state.balls.append(currentBall)
 
 		return state
-		
+
+	def return_ball_state(self):
+		state = []
+		for i in range(0, len(self.balls.sprites())):
+			currentBall = (self.balls.sprites()[i].ball.pos[0], self.balls.sprites()[i].ball.pos[1])
+			state.append(currentBall)
+
+		return state
+
+	def step(self, game, angle, force):
+		original_pos = self.return_ball_state()
+		ang_in_max = 0;
+		ang_in_min = 1;
+
+		ang_out_min = 0;
+		ang_out_max = 6.28318530718;
+
+		ap = (angle - ang_in_min) / (ang_in_max - ang_in_min);
+		real_angle = ap * (ang_out_max - ang_out_min) + ang_out_min;
+
+		force_in_max = 0;
+		force_in_min = 1;
+
+		force_out_min = 0;
+		force_out_max = 100;
+
+		fp = (force - force_in_min) / (force_in_max - force_in_min);
+		real_force = fp * (force_out_max - force_out_min) + force_out_min;
+
+		events = event.events()
+		game.cue.update_cue_displacement(real_force)  # replace 100 with the real input for displacement between 0, 100
+		game.cue.update_cue(game, 0, events,
+							real_angle)  # replace the last parameter with the real angle between 0, 2pi
+		game.cue.ball_hit()
+
+		while (not game.all_not_moving()):
+			events = event.events()
+			collisions.resolve_all_collisions(game.balls, game.holes, game.table_sides)
+			game.redraw_all()
+		game.check_pool_rules()
+
+		new_pos = self.return_ball_state()
+		balls_in = len(original_pos) - len(new_pos)
+		done = 1 if len(new_pos) == 1 else 0
+
+		x = len(new_pos)
+		for i in range(x, self.ball_num):
+			new_pos.append((0, 0))
+
+		return (new_pos, balls_in, done)
