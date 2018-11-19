@@ -13,7 +13,7 @@ EPISODE_LENGTH = 200
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='RL training.')
     parser.add_argument('output_model', type=str,
-            help='Output model path. Default: model.pkl')
+            help='Output model path.')
     parser.add_argument('--algo', type=str, default='q-table',
             help='One of q-table, dqn (Deep Q-Network), or ac (Actor-Critic). Default: q-table')
     parser.add_argument('--balls', type=int, default=2,

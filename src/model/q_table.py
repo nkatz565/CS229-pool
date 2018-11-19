@@ -4,7 +4,7 @@ import pickle
 import numpy as np
 
 
-def choose_action(state, q_table, action_space, epsilon):
+def choose_action(state, q_table, action_space, epsilon=0):
     if np.random.random_sample() < epsilon: # random action
         return action_space.sample() 
     else: # greedy action based on Q table
