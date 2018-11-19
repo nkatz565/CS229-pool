@@ -123,8 +123,7 @@ class PoolEnv:
         # Init
         self.current_obs = None
         self.current_state = None
-        self.game = None
-        self.events = None
+        self.gamestate = None
         self.reset()
 
     def set_buckets(self, action=None, state=None):
@@ -134,11 +133,8 @@ class PoolEnv:
             self.state_space.set_buckets(state)
 
     def reset(self):
-
         self.gamestate = gamestate.GameState(self.num_balls)
-
         self.current_obs = self.gamestate.return_ball_state()
-
         self.current_state = self.state_space.get_state(self.current_obs) 
         return self.current_state
 
@@ -147,10 +143,10 @@ class PoolEnv:
         game = self.gamestate
         ball_pos, holes_in, done = game.step(game, real_action[0],real_action[1])
 
+        self.current_obs = ball_pos
         self.current_state = self.state_space.get_state(ball_pos)
         reward = holes_in
         return self.current_state, reward, done
-
 
     def mock_experience(self):
         """

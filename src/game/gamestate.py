@@ -231,7 +231,6 @@ class GameState:
 	def check_potted(self):
 		self.can_move_white_ball = False  # if white ball is potted, it will be created again and placed in the middle
 		if 0 in self.potted:
-			print('test2')
 			self.create_white_ball()
 			self.cue.target_ball = self.white_ball
 			self.potted.remove(0)
