@@ -16,6 +16,7 @@ from . import graphics
 from . import table_sprites
 from .ball import BallType
 from .collisions import check_if_ball_touches_balls
+from . import collisions
 
 
 class Player(Enum):
@@ -29,13 +30,17 @@ class InterState(object):
 	pass
 
 class GameState:
-	def __init__(self):
+	def __init__(self, ball_num):
 		pygame.init()
 		pygame.display.set_caption(config.window_caption)
 		event.set_allowed_events()
 		zope.event.subscribers.append(self.game_event_handler)
 		self.canvas = graphics.Canvas()
+		self.ball_num = ball_num
 		self.fps_clock = pygame.time.Clock()
+		self.start_pool(ball_num)
+		events = event.events()
+		self.redraw_all()
 
 	def fps(self):
 		return self.fps_clock.get_fps()
@@ -66,7 +71,7 @@ class GameState:
 			if not self.white_ball_1st_hit_is_set:
 				self.first_collision(event.data)
 
-	def set_pool_balls(self):
+	def set_pool_balls(self, ball_num):
 		counter = [0, 0]
 		coord_shift = np.array([math.sin(math.radians(60)) * config.ball_radius *
 								2, -config.ball_radius])
@@ -74,7 +79,7 @@ class GameState:
 
 		self.create_white_ball()
 		# randomizes the sequence of balls on the table
-		ball_placement_sequence = list(range(1, config.total_ball_num))
+		ball_placement_sequence = list(range(1, ball_num))
 		random.shuffle(ball_placement_sequence)
 
 		for i in ball_placement_sequence:
@@ -89,10 +94,10 @@ class GameState:
 
 		self.all_sprites.add(self.balls)
 
-	def start_pool(self):
+	def start_pool(self, ball_num):
 		self.reset_state()
 		self.generate_table()
-		self.set_pool_balls()
+		self.set_pool_balls(ball_num)
 		self.cue = cue.Cue(self.white_ball)
 		self.all_sprites.add(self.cue)
 
@@ -226,6 +231,7 @@ class GameState:
 	def check_potted(self):
 		self.can_move_white_ball = False  # if white ball is potted, it will be created again and placed in the middle
 		if 0 in self.potted:
+			print('test2')
 			self.create_white_ball()
 			self.cue.target_ball = self.white_ball
 			self.potted.remove(0)
@@ -321,4 +327,53 @@ class GameState:
 			state.balls.append(currentBall)
 
 		return state
+		
+	def return_ball_state(self):
+		state = []
+		for i in range(0, len(self.balls.sprites())):
+			currentBall = (self.balls.sprites()[i].ball.pos[0], self.balls.sprites()[i].ball.pos[1])
+			state.append(currentBall)
+
+		return state
+	
+	def step(self, game, angle, force):
+		original_pos = self.return_ball_state()
+		ang_in_max = 0;
+		ang_in_min = 1;
+
+		ang_out_min = 0;
+		ang_out_max = 6.28318530718;
+
+		ap = (angle - ang_in_min) / (ang_in_max - ang_in_min);
+		real_angle = ap * (ang_out_max - ang_out_min) + ang_out_min;
+
+		force_in_max = 0;
+		force_in_min = 1;
+
+		force_out_min = 0;
+		force_out_max = 100;
+
+		fp = (force - force_in_min) / (force_in_max - force_in_min);
+		real_force = fp * (force_out_max - force_out_min) + force_out_min;
+		
+		events = event.events()
+		game.cue.update_cue_displacement(real_force) #replace 100 with the real input for displacement between 0, 100
+		game.cue.update_cue(game, 0, events, real_angle) #replace the last parameter with the real angle between 0, 2pi
+		game.cue.ball_hit()
+        
+		while(not game.all_not_moving()):
+			events = event.events()
+			collisions.resolve_all_collisions(game.balls, game.holes, game.table_sides)
+			game.redraw_all()
+		game.check_pool_rules()
+		
+		new_pos = self.return_ball_state()
+		balls_in = len(original_pos) - len(new_pos)
+		done = 1 if len(new_pos) == 1 else 0
+		
+		x = len(new_pos)
+		for i in range(x, self.ball_num):
+			new_pos.append((0,0))
+		
+		return (new_pos, balls_in, done)
 		

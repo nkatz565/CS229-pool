@@ -33,10 +33,12 @@ while not was_closed:
 				game.redraw_all()
 				#game.redraw_all_no_gphx() #UNCOMMENT THIS TO DISABLE SEEING THE BOARD WHILE IT'S WAITING FOR INPUT
 				events = event.events()
-				if game.cue.is_clicked(events):
-					game.cue.cue_is_active(game, events)
-				elif game.can_move_white_ball and game.white_ball.is_clicked(events):
-					game.white_ball.is_active(game, game.is_behind_line_break())
+				#game.cue.update_cue_displacement(100)
+				#game.cue.update_cue(game, 0, events, 1)
+				#if game.cue.is_clicked(events):
+				#	game.cue.cue_is_active(game, events)
+				#elif game.can_move_white_ball and game.white_ball.is_clicked(events):
+				#	game.white_ball.is_active(game, game.is_behind_line_break())
 	was_closed = events["closed"]
 
 	#if button_pressed == config.exit_button:
