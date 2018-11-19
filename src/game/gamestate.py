@@ -37,6 +37,7 @@ class GameState:
 		zope.event.subscribers.append(self.game_event_handler)
 		self.canvas = graphics.Canvas()
 		self.ball_num = ball_num
+		self.collision_count = 0
 		self.fps_clock = pygame.time.Clock()
 		self.start_pool(ball_num)
 		events = event.events()
@@ -68,6 +69,7 @@ class GameState:
 			self.all_sprites.remove(event.data)
 			self.potted.append(event.data.number)
 		elif event.type == "COLLISION":
+			self.collision_count += 1
 			if not self.white_ball_1st_hit_is_set:
 				self.first_collision(event.data)
 
@@ -337,6 +339,7 @@ class GameState:
 		return state
 
 	def step(self, game, angle, force):
+		self.collision_count = 0
 		original_pos = self.return_ball_state()
 		ang_in_max = 0;
 		ang_in_min = 1;
@@ -375,5 +378,5 @@ class GameState:
 		x = len(new_pos)
 		for i in range(x, self.ball_num):
 			new_pos.append((0, 0))
-
-		return (new_pos, balls_in, done)
+		collision_count = self.collision_count
+		return (new_pos, balls_in, collision_count, done)

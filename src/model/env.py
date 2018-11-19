@@ -145,10 +145,11 @@ class PoolEnv:
     def step(self, action):
         real_action = self.action_space.get_action(action) # deal with discretized action
         game = self.gamestate
-        ball_pos, holes_in, done = game.step(game, real_action[0],real_action[1])
+        ball_pos, holes_in, collision_count, done = game.step(game, real_action[0],real_action[1])
 
         self.current_state = self.state_space.get_state(ball_pos)
         reward = holes_in
+        reward += collision_count
         return self.current_state, reward, done
 
 
