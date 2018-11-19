@@ -30,7 +30,8 @@ class InterState(object):
     pass
 
 class GameState:
-    def __init__(self, ball_num):
+    def __init__(self, ball_num, visualize=False):
+        self.visualize = visualize
         pygame.init()
         pygame.display.set_caption(config.window_caption)
         event.set_allowed_events()
@@ -124,6 +125,10 @@ class GameState:
         return self.turn_number == 0
 
     def redraw_all(self, update=True):
+        if not self.visualize:
+            self.redraw_all_no_gphx()
+            return
+
         self.all_sprites.clear(self.canvas.surface, self.canvas.background)
         self.all_sprites.draw(self.canvas.surface)
         self.all_sprites.update(self)

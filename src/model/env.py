@@ -115,8 +115,9 @@ class StateSpace:
             return encoded_state
 
 class PoolEnv:
-    def __init__(self, num_balls=2, is_discrete=True):
+    def __init__(self, num_balls=2, is_discrete=True, visualize=False):
         self.num_balls = num_balls
+        self.visualize = visualize
         
         # Two actions: angle, force
         # In the range of `ranges` in the game
@@ -139,7 +140,7 @@ class PoolEnv:
             self.state_space.set_buckets(state)
 
     def reset(self):
-        self.gamestate = gamestate.GameState(self.num_balls)
+        self.gamestate = gamestate.GameState(self.num_balls, self.visualize)
         self.current_obs = self.gamestate.return_ball_state()
         self.current_state = self.state_space.get_state(self.current_obs) 
         return self.current_state

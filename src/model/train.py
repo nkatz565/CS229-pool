@@ -16,6 +16,8 @@ if __name__ == '__main__':
             help='One of q-table, dqn (Deep Q-Network), or ac (Actor-Critic). Default: q-table')
     parser.add_argument('--balls', type=int, default=2,
             help='Number of balls on table (including white ball), should be >= 2.')
+    parser.add_argument('--visualize', dest='visualize', action='store_true',
+            help='To see the visualization of the pool game.')
     args = parser.parse_args()
 
     if args.balls < 2:
@@ -35,5 +37,5 @@ if __name__ == '__main__':
         print('Algorithm not supported! Should be one of q-table, dqn, or ac.')
         sys.exit(1)
 
-    env = PoolEnv(args.balls, is_discrete=is_discrete)
+    env = PoolEnv(args.balls, is_discrete=is_discrete, visualize=args.visualize)
     algo(env, episodes=EPISODES, episode_length=EPISODE_LENGTH)
