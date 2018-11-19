@@ -35,8 +35,6 @@ def train(env, episodes=200, episode_length=50):
         rewards = 0 # accumulate rewards for each episode
         done = False
         for t in range(episode_length):
-            env.render()
-
             # Agent takes action using epsilon-greedy algorithm, get reward
             action = choose_action(state, q_table, env.action_space, epsilon)
             next_state, reward, done = env.step(action)

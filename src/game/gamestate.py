@@ -37,6 +37,7 @@ class GameState:
         zope.event.subscribers.append(self.game_event_handler)
         self.canvas = graphics.Canvas()
         self.ball_num = ball_num
+        self.collision_count = 0
         self.fps_clock = pygame.time.Clock()
         self.start_pool(ball_num)
         events = event.events()
@@ -68,6 +69,7 @@ class GameState:
             self.all_sprites.remove(event.data)
             self.potted.append(event.data.number)
         elif event.type == "COLLISION":
+            self.collision_count += 1
             if not self.white_ball_1st_hit_is_set:
                 self.first_collision(event.data)
 
@@ -336,24 +338,25 @@ class GameState:
         return state
 
     def step(self, game, angle, force):
+        self.collision_count = 0
         original_pos = self.return_ball_state()
-        ang_in_max = 0;
-        ang_in_min = 1;
+        ang_in_max = 0
+        ang_in_min = 1
 
-        ang_out_min = 0;
-        ang_out_max = 6.28318530718;
+        ang_out_min = 0
+        ang_out_max = 6.28318530718
 
-        ap = (angle - ang_in_min) / (ang_in_max - ang_in_min);
-        real_angle = ap * (ang_out_max - ang_out_min) + ang_out_min;
+        ap = (angle - ang_in_min) / (ang_in_max - ang_in_min)
+        real_angle = ap * (ang_out_max - ang_out_min) + ang_out_min
 
-        force_in_max = 0;
-        force_in_min = 1;
+        force_in_max = 0
+        force_in_min = 1
 
-        force_out_min = 0;
-        force_out_max = 100;
+        force_out_min = 0
+        force_out_max = 100
 
-        fp = (force - force_in_min) / (force_in_max - force_in_min);
-        real_force = fp * (force_out_max - force_out_min) + force_out_min;
+        fp = (force - force_in_min) / (force_in_max - force_in_min)
+        real_force = fp * (force_out_max - force_out_min) + force_out_min
 
         events = event.events()
         game.cue.update_cue_displacement(real_force)  # replace 100 with the real input for displacement between 0, 100
@@ -374,5 +377,5 @@ class GameState:
         x = len(new_pos)
         for i in range(x, self.ball_num):
             new_pos.append((0, 0))
-
-        return (new_pos, balls_in, done)
+        collision_count = self.collision_count
+        return (new_pos, balls_in, collision_count, done)

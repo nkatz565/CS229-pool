@@ -141,21 +141,9 @@ class PoolEnv:
     def step(self, action):
         real_action = self.action_space.get_action(action) # deal with discretized action
         game = self.gamestate
-        ball_pos, holes_in, done = game.step(game, real_action[0],real_action[1])
+        ball_pos, holes_in, collision_count, done = game.step(game, real_action[0],real_action[1])
 
         self.current_obs = ball_pos
         self.current_state = self.state_space.get_state(ball_pos)
-        reward = holes_in
+        reward = 5 * holes_in + (1 if collision_count > 0 else 0)
         return self.current_state, reward, done
-
-    def mock_experience(self):
-        """
-        For testing purpose. Sample a mock experience from the environment.
-        """
-        pass
-    
-    def render(self):
-        """
-        For visualizing the learning process.
-        """
-        pass
