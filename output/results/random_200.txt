@@ -1,0 +1,11 @@
+Episode finished after 200 timesteps, total rewards -186
+Episode finished after 149 timesteps, total rewards -130
+Episode finished after 166 timesteps, total rewards -148
+Episode finished after 180 timesteps, total rewards -159
+Episode finished after 83 timesteps, total rewards -70
+Episode finished after 96 timesteps, total rewards -84
+Episode finished after 161 timesteps, total rewards -146
+Episode finished after 65 timesteps, total rewards -57
+Episode finished after 200 timesteps, total rewards -189
+Episode finished after 200 timesteps, total rewards -186
+Average rewards: -0.8954511688905711
