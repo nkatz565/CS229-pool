@@ -137,7 +137,7 @@ class GameState:
         self.mark_one_frame()
 
     def redraw_all_no_gphx(self, update=False):
-        self.all_sprites.clear(self.canvas.surface, self.canvas.background)
+        #self.all_sprites.clear(self.canvas.surface, self.canvas.background)
         self.all_sprites.update(self)
         if update:
             pygame.display.flip()

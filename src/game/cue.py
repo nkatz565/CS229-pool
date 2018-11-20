@@ -43,8 +43,7 @@ class Cue(pygame.sprite.Sprite):
             rectangle_points = np.array((initial_coords, -initial_coords,
                                          -initial_coords + coord_diff, initial_coords + coord_diff))
             rectangle_points_from_circle = rectangle_points + self.displacement * sin_cos
-            pygame.draw.polygon(self.image, self.color,
-                                rectangle_points_from_circle + self.sprite_size)
+            #pygame.draw.polygon(self.image, self.color, rectangle_points_from_circle + self.sprite_size)
 
             self.points_on_screen = rectangle_points_from_circle + self.target_ball.ball.pos
             self.rect = self.image.get_rect()
@@ -82,8 +81,7 @@ class Cue(pygame.sprite.Sprite):
 
         while config.resolution[1] > cur_pos[1] > 0 and config.resolution[0] > cur_pos[0] > 0:
             cur_pos += config.aiming_line_length * diff * 2
-            pygame.draw.line(game_state.canvas.surface, color, cur_pos,
-                             (cur_pos + config.aiming_line_length * diff))
+            #pygame.draw.line(game_state.canvas.surface, color, cur_pos, (cur_pos + config.aiming_line_length * diff))
 
     def is_clicked(self, events):
         return events["clicked"] and self.is_point_in_cue(events["mouse_pos"])
@@ -108,8 +106,8 @@ class Cue(pygame.sprite.Sprite):
             events = event.events()
             self.update_cue(game_state, initial_mouse_dist, events)
         # undraw leftover aiming lines
-        self.draw_lines(game_state, self.target_ball, self.angle +
-                        math.pi, config.table_color)
+        #self.draw_lines(game_state, self.target_ball, self.angle +
+        #                math.pi, config.table_color)
 
         if self.displacement > config.ball_radius+config.cue_safe_displacement:
             self.ball_hit()
@@ -142,8 +140,8 @@ class Cue(pygame.sprite.Sprite):
             #    self.angle -= math.pi
 
         game_state.redraw_all(update=False)
-        self.draw_lines(game_state, self.target_ball, prev_angle +
-                        math.pi, config.table_color)
-        self.draw_lines(game_state, self.target_ball, self.angle +
-                        math.pi, (255, 255, 255))
+        #self.draw_lines(game_state, self.target_ball, prev_angle +
+        #                math.pi, config.table_color)
+        #self.draw_lines(game_state, self.target_ball, self.angle +
+        #                math.pi, (255, 255, 255))
         pygame.display.flip()
