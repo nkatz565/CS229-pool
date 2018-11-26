@@ -16,7 +16,7 @@ class ActionSpace:
         if self.is_discrete:
             return self.buckets
         else:
-            return -1
+            return len(self.ranges)
 
     def set_buckets(self, buckets):
         self.buckets = buckets
@@ -31,12 +31,12 @@ class ActionSpace:
     def get_action(self, action):
         if self.is_discrete:
             real_action = []
-            
+
             # Map discrete buckets to continuous values
             for i, a in enumerate(action):
                 bucket = self.buckets[i]
                 l, u = self.ranges[i]
-                
+
                 v = (a / bucket) * (u - l) + l
                 real_action.append(v)
 
@@ -78,12 +78,12 @@ class StateSpace:
         if self.is_discrete:
             return utils.prod(self.buckets) ** self.m
         else:
-            return -1
+            return self.m * 2
 
     def set_buckets(self, buckets):
         self.buckets = buckets
         self.is_discrete = True
-    
+
     def sample(self):
         if self.is_discrete:
             return np.random.choice(self.n)
@@ -92,7 +92,7 @@ class StateSpace:
 
     def get_state(self, observation):
         if not self.is_discrete:
-            return observation
+            return np.asarray(list(sum(observation, ())), dtype=np.float64)
         else:
             state = [(0, 0)] * len(observation)
             bucket_x, bucket_y = self.buckets
@@ -118,7 +118,7 @@ class PoolEnv:
     def __init__(self, num_balls=2, is_discrete=True, visualize=False):
         self.num_balls = num_balls
         self.visualize = visualize
-        
+
         # Two actions: angle, force
         # In the range of `ranges` in the game
         self.action_space = ActionSpace([(0, 1), (0, 1)])
@@ -142,7 +142,7 @@ class PoolEnv:
     def reset(self):
         self.gamestate = gamestate.GameState(self.num_balls, self.visualize)
         self.current_obs = self.gamestate.return_ball_state()
-        self.current_state = self.state_space.get_state(self.current_obs) 
+        self.current_state = self.state_space.get_state(self.current_obs)
         return self.current_state
 
     def step(self, action):
