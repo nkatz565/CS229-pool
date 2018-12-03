@@ -2,9 +2,9 @@ import argparse
 import sys
 
 from .env import PoolEnv
-from . import q_table
-from . import dqn
-from . import ac
+from .q_table import q_table
+from .dqn import dqn
+from .a3c import a3c
 
 
 EPISODES = 200 
@@ -15,7 +15,7 @@ if __name__ == '__main__':
     parser.add_argument('output_model', type=str,
             help='Output model path.')
     parser.add_argument('--algo', type=str, default='q-table',
-            help='One of q-table, dqn (Deep Q-Network), or ac (Actor-Critic). Default: q-table')
+            help='One of q-table, dqn (Deep Q-Network), or a3c (Asynchronous Advantage Actor-Critic). Default: q-table')
     parser.add_argument('--balls', type=int, default=2,
             help='Number of balls on table (including white ball), should be >= 2. Default: 2')
     parser.add_argument('--visualize', dest='visualize', action='store_true',
@@ -32,11 +32,11 @@ if __name__ == '__main__':
     elif args.algo == 'dqn':
         algo = dqn.train
         is_discrete = False
-    elif args.algo == 'ac':
-        algo = ac.train
+    elif args.algo == 'a3c':
+        algo = a3c.train
         is_discrete = False
     else:
-        print('Algorithm not supported! Should be one of q-table, dqn, or ac.')
+        print('Algorithm not supported! Should be one of q-table, dqn, or a3c.')
         sys.exit(1)
 
     env = PoolEnv(args.balls, is_discrete=is_discrete, visualize=args.visualize)

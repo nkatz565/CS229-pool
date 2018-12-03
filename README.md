@@ -13,10 +13,10 @@ $ python -m pip install -r requirements.txt
 # Run game
 $ python -m src.game.main
 
-# Run training, ALGO = q-table | dqn | ac
+# Run training, ALGO = q-table | dqn | a3c
 $ python -m src.model.train [--balls BALLS] [--algo ALGO] [--visualize] output_model
 
-# Run evaluation, ALGO = random | q-table | dqn | ac
+# Run evaluation, ALGO = random | q-table | dqn | a3c
 $ python -m src.model.eval [--model MODEL] [--balls BALLS] [--algo ALGO] [--visualize]
 ```
 

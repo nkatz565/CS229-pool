@@ -9,7 +9,7 @@ from . import ac
 
 
 EPISODES = 10 
-EPISODE_LENGTH = 50
+EPISODE_LENGTH = 200
 
 def load_model(filepath):
     with open(filepath, 'rb') as fin:
@@ -53,6 +53,9 @@ if __name__ == '__main__':
         sys.exit(1)
 
     env = PoolEnv(args.balls, is_discrete=is_discrete, visualize=args.visualize)
+    if is_discrete:
+        env.set_buckets(action=[18, 5], state=[50, 50])
+
     total_rewards = 0
     for i_episode in range(EPISODES):
         state = env.reset()
