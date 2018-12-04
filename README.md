@@ -42,3 +42,7 @@ $ python -m src.model.eval [--model MODEL] [--balls BALLS] [--algo ALGO] [--visu
 - Rewards
     - If pocket the balls, reward += 5 for each pocketed ball
     - If no ball is hit, reward += -1
+
+## References
+
+- [MorvanZhou/pytorch-A3C](https://github.com/MorvanZhou/pytorch-A3C)
