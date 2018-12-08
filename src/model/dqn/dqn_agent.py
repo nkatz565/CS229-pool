@@ -72,7 +72,7 @@ class Agent():
 
         # Epsilon-greedy action selection
         if random.random() > eps:
-            #print('Most optimal action.')
+            print('Most optimal action.')
             return np.argmax(action_values.cpu().data.numpy())
         else:
             return random.choice(np.arange(self.action_size))

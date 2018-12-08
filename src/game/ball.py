@@ -95,11 +95,11 @@ class BallSprite(pygame.sprite.Sprite):
 
     def update(self, *args):
         #print('test1')
-        if np.hypot(*self.ball.velocity) != 0:
-        
-            self.update_sprite()
+        if (self.ball.velocity[0]**2 + self.ball.velocity[1]**2) != 0:
+
+            #self.update_sprite()
             self.ball.update()
-        
+
     '''def update(self, *args):
         #print('test1')
         if np.hypot(*self.ball.velocity) != 0:
@@ -118,8 +118,8 @@ class BallSprite(pygame.sprite.Sprite):
             self.update_sprite()
             self.ball.update()
     '''
-    
-            
+
+
     def update_sprite(self):
         sprite_dimension = np.repeat([config.ball_radius * 2], 2)
         new_sprite = pygame.Surface(sprite_dimension)

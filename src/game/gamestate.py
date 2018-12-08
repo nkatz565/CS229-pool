@@ -65,9 +65,9 @@ class GameState:
 
     def game_event_handler(self, event):
         if event.type == "POTTED":
-            self.table_coloring.update(self)
+            #self.table_coloring.update(self)
             self.balls.remove(event.data)
-            self.all_sprites.remove(event.data)
+            #self.all_sprites.remove(event.data)
             self.potted.append(event.data.number)
         elif event.type == "COLLISION":
             self.collision_count += 1
@@ -139,10 +139,10 @@ class GameState:
     def redraw_all_no_gphx(self, update=False):
         #self.all_sprites.clear(self.canvas.surface, self.canvas.background)
         self.all_sprites.update(self)
-        if update:
-            pygame.display.flip()
-        self.mark_one_frame()	
-        
+        #if update:
+        #    pygame.display.flip()
+        #self.mark_one_frame()
+
     def all_not_moving(self):
         return_value = True
         for ball in self.balls:
@@ -320,7 +320,7 @@ class GameState:
             # checks if the 8ball was the first ball hit, and if so checks if the player needs to pot the 8ball
             # and if not he gets penalised
             elif self.white_ball_1st_hit_8ball:
-                self.turn_over(not self.potting_8ball[self.current_player])	
+                self.turn_over(not self.potting_8ball[self.current_player])
     def return_game_state(self):
         state = InterState()
         state.balls=[]
@@ -368,12 +368,16 @@ class GameState:
         game.cue.update_cue(game, 0, events,
                             real_angle)  # replace the last parameter with the real angle between 0, 2pi
         game.cue.ball_hit()
-
+        num_steps = 0
         while (not game.all_not_moving()):
-            events = event.events()
+            #events = event.events()
             collisions.resolve_all_collisions(game.balls, game.holes, game.table_sides)
-            game.redraw_all()
+            #game.redraw_all()
+            for ball in game.balls:
+                ball.update()
+            num_steps += 1
         game.check_pool_rules()
+        print('Num steps was ' + str(num_steps))
 
         new_pos = self.return_ball_state()
         balls_in = len(original_pos) - len(new_pos)
