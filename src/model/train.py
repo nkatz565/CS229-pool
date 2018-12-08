@@ -7,8 +7,8 @@ from .dqn import dqn
 from .a3c import a3c
 
 
-EPISODES = 200 
-EPISODE_LENGTH = 200
+EPISODES = 2
+EPISODE_LENGTH = 25
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='RL training.')
@@ -25,7 +25,9 @@ if __name__ == '__main__':
     if args.balls < 2:
         print('Number of balls should be >= 2.')
         sys.exit(1)
-
+    
+    single_env = True
+    
     if args.algo == 'q-table':
         algo = q_table.train
         is_discrete = True
@@ -34,10 +36,16 @@ if __name__ == '__main__':
         is_discrete = False
     elif args.algo == 'a3c':
         algo = a3c.train
+        single_env = False
         is_discrete = False
     else:
         print('Algorithm not supported! Should be one of q-table, dqn, or a3c.')
         sys.exit(1)
 
-    env = PoolEnv(args.balls, is_discrete=is_discrete, visualize=args.visualize)
-    algo(env, args.output_model, episodes=EPISODES, episode_length=EPISODE_LENGTH)
+    
+    if(single_env):
+        env = PoolEnv(args.balls, is_discrete=is_discrete, visualize=args.visualize)
+        algo(env, args.output_model, episodes=EPISODES, episode_length=EPISODE_LENGTH)
+    else:
+        algo(args.balls, is_discrete, args.visualize, args.output_model, episodes=EPISODES, episode_length=EPISODE_LENGTH)
+        
