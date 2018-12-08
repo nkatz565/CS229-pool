@@ -37,11 +37,14 @@ def train(env, model_path, episodes=200, episode_length=50):
         done = False
         for t in range(episode_length):
             # Agent takes action using epsilon-greedy algorithm, get reward
+            print('Episode ' + str(i_episode))
             action = agent.act(state, epsilon)
-            #print('The action is ' + str(action_to_tuple(action, action_buckets)))
+            print('The action number is ' + str(action))
+            print('The action is ' + str(action_to_tuple(action, action_buckets)))
             next_state, reward, done = env.step(action_to_tuple(action, action_buckets))
             rewards += reward
-            #print('The reward is ' + str(reward))
+            print('The reward is ' + str(reward))
+            print('The next state is ' + str(next_state))
 
             # Agent learns over New Step
             agent.step(state, action, reward, next_state, done)
