@@ -12,6 +12,11 @@ def to_tensor(s):
     """Wraps a state representation into flat tensor"""
     return torch.tensor(s).float().view(-1)
 
+def norm_state(s, w, h):
+    s[::2] /= w
+    s[1::2] /= h
+    return s
+
 def norm(v, max_v, min_v):
     return (v - (max_v + min_v) / 2) / (max_v - min_v)
 
@@ -40,14 +45,16 @@ class Worker(mp.Process):
 
         total_steps = 1
         while self.g_ep.value < self.episodes:
-            state = env.reset()
+            state = norm_state(env.reset(), env.state_space.w, env.state_space.h)
             state_buffer, action_buffer, reward_buffer = [], [], []
             rewards = 0 # accumulate rewards for each episode
             done = False
             for t in range(self.episode_length):
                 # Agent takes action using epsilon-greedy algorithm, get reward
                 action = self.lnet.choose_action(to_tensor(state))
-                next_state, reward, done = env.step(self.lnet.clip_action(action))
+                a = self.lnet.clip_action(action)
+                next_state, reward, done = env.step(a)
+                next_state = norm_state(next_state, env.state_space.w, env.state_space.h)
                 rewards += reward
                 done = done or t == self.episode_length - 1
 

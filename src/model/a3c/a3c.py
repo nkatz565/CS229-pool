@@ -6,17 +6,17 @@ import torch.nn.functional as F
 import torch.multiprocessing as mp
 
 from .net import Net
-from .worker import Worker
+from .worker import Worker, to_tensor, norm_state
 from .shared_adam import SharedAdam
 from ..env import PoolEnv
-from .utils import to_tensor
 
 
 HIDDEN_DIM = 10
 LR = 0.002
 
-def choose_action(state, model, action_space):
-    return model.clip_action(model.choose_action(to_tensor(state)))
+def choose_action(state, model, action_space, w, h):
+    s = norm_state(state, w, h)
+    return model.clip_action(model.choose_action(to_tensor(s)))
 
 def save_model(filepath, model):
     torch.save(model.state_dict(), filepath)
