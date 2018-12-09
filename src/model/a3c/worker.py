@@ -1,5 +1,6 @@
 import torch
 import torch.multiprocessing as mp
+import datetime
 
 from .utils import v_wrap, set_init, push_and_pull, record
 from .net import Net
@@ -73,7 +74,7 @@ class Worker(mp.Process):
 
                 if done:
                     record(self.g_ep, self.g_ep_r, rewards)
-                    print('Episode finished after {} timesteps, total rewards {} (worker {})'.format(t+1, rewards, self.debug_name))
+                    print('Episode {} finished after {} timesteps, total rewards {} (worker {}), action: {}, time: {}'.format(self.g_ep.value, t+1, rewards, self.debug_name, action, datetime.datetime.now().time()))
                     if self.model_path is not None:
                         self.gnet.save(self.model_path)
                     break

@@ -340,8 +340,10 @@ class GameState:
         state = []
         for i in range(0, len(self.balls.sprites())):
             currentBall = (self.balls.sprites()[i].ball.pos[0], self.balls.sprites()[i].ball.pos[1])
-            state.append(currentBall)
-
+            if(self.balls.sprites()[i].number == 0):
+                state.insert(0, currentBall)
+            else:
+                state.append(currentBall)
         return state
 
     def step(self, game, angle, force):
