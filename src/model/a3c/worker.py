@@ -1,7 +1,7 @@
 import torch
 import torch.multiprocessing as mp
 
-from .utils import v_wrap, set_init, push_and_pull
+from .utils import v_wrap, set_init, push_and_pull, record
 from .net import Net
 from ..env import PoolEnv
 
@@ -27,8 +27,8 @@ class Worker(mp.Process):
         
         self.episodes = episodes 
         self.episode_length = episode_length
-        self.global_ep = global_ep
-        self.global_ep_r = global_ep_r
+        self.g_ep = global_ep
+        self.g_ep_r = global_ep_r
 
         self.gamma = 0.8 # reward discount factor
 
@@ -39,7 +39,7 @@ class Worker(mp.Process):
         self.lnet = Net(env.state_space.n, env.action_space.n, self.HIDDEN_DIM, action_ranges=env.action_space.ranges)
 
         total_steps = 1
-        while self.global_ep.value < self.episodes:
+        while self.g_ep.value < self.episodes:
             state = env.reset()
             state_buffer, action_buffer, reward_buffer = [], [], []
             rewards = 0 # accumulate rewards for each episode
@@ -65,7 +65,8 @@ class Worker(mp.Process):
                 total_steps += 1
 
                 if done:
+                    record(self.g_ep, self.g_ep_r, rewards)
                     print('Episode finished after {} timesteps, total rewards {} (worker {})'.format(t+1, rewards, self.debug_name))
+                    if self.model_path is not None:
+                        self.gnet.save(self.model_path)
                     break
-            if self.model_path is not None:
-                self.gnet.save(self.model_path)
