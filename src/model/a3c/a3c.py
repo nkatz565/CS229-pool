@@ -11,7 +11,7 @@ from .shared_adam import SharedAdam
 from ..env import PoolEnv
 
 
-HIDDEN_DIM = 10
+HIDDEN_DIM = 100
 LR = 0.002
 
 def choose_action(state, model, action_space, w, h):
