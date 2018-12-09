@@ -51,7 +51,7 @@ class Worker(mp.Process):
 
                 action_buffer.append(action)
                 state_buffer.append(state)
-                reward_buffer.append(norm(reward, self.env.max_reward, self.env.min_reward))
+                reward_buffer.append(norm(reward, env.max_reward, env.min_reward))
 
                 # Update global net, assign to local net
                 if total_steps % GLOBAL_UPDATE_RATE == 0 or done:
