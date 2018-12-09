@@ -10,7 +10,7 @@ GLOBAL_UPDATE_RATE = 5 # the network will sync with the global network every X i
 
 def to_tensor(s):
     """Wraps a state representation into flat tensor"""
-    return torch.tensor(s).view(-1)
+    return torch.tensor(s).float().view(-1)
 
 def norm(v, max_v, min_v):
     return (v - (max_v + min_v) / 2) / (max_v - min_v)
