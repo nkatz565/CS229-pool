@@ -48,7 +48,7 @@ class Net(nn.Module):
         # Clip value
         if self.action_ranges is not None:
             for i in range(a.size):
-                a[i] = a[i].clip(*ranges[i])
+                a[i] = a[i].clip(*self.action_ranges[i])
         return a
 
     def loss_func(self, s, a, v_t):
