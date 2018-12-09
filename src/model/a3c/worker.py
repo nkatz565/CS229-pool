@@ -47,7 +47,7 @@ class Worker(mp.Process):
             for t in range(self.episode_length):
                 # Agent takes action using epsilon-greedy algorithm, get reward
                 action = self.lnet.choose_action(to_tensor(state))
-                next_state, reward, done = env.step(action)
+                next_state, reward, done = env.step(self.lnet.clip_action(action))
                 rewards += reward
                 done = done or t == self.episode_length - 1
 
