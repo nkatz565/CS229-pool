@@ -6,12 +6,13 @@ from .utils import set_init
 
 
 class Net(nn.Module):
-    def __init__(self, s_dim, a_dim, h_dim, action_ranges=None):
+    def __init__(self, s_dim, a_dim, h_dim, action_ranges=None, scale=100):
         super().__init__()
 
         self.s_dim = s_dim
         self.a_dim = a_dim
-        self.action_ranges = action_ranges
+        self.action_ranges = [(mn * scale, mx * scale) for mn, mx in action_ranges] # scale up for more efficient learning
+        self.scale = scale
 
         # Actor
         self.a1 = nn.Linear(s_dim, h_dim)
@@ -31,7 +32,7 @@ class Net(nn.Module):
     def forward(self, x):
         a1 = F.relu(self.a1(x))
         # TODO: not sure if using sigmoid to compress the range is a good idea, since 0 and 1 are unapproachable values
-        mu = torch.sigmoid(self.mu(a1)) # both actions in range [0, 1]
+        mu = 2 * torch.tanh(self.mu(a1))
         sigma = F.softplus(self.sigma(a1)) + 0.001 # avoid 0
 
         c1 = F.relu(self.c1(x))
@@ -49,7 +50,7 @@ class Net(nn.Module):
         if self.action_ranges is not None:
             for i in range(a.size):
                 a[i] = a[i].clip(*self.action_ranges[i])
-        return a
+        return a / self.scale
 
     def loss_func(self, s, a, v_t):
         self.train()
