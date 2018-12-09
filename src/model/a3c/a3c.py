@@ -5,15 +5,14 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.multiprocessing as mp
 
-
 from .net import Net
 from .worker import Worker
 from .shared_adam import SharedAdam
 from ..env import PoolEnv
 
 
-HIDDEN_DIM = 20
-LR = 0.0002
+HIDDEN_DIM = 10
+LR = 0.002
 
 def choose_action(state, model, action_space):
     return model.choose_action(state)
