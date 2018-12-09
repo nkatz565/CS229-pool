@@ -5,7 +5,7 @@ import pickle
 from .env import PoolEnv
 from . import q_table
 from . import dqn
-from . import ac
+from . import a3c
 
 
 EPISODES = 10 
@@ -21,7 +21,7 @@ if __name__ == '__main__':
     parser.add_argument('--model', type=str, default='model.pkl',
             help='Input model path. Default: model.pkl')
     parser.add_argument('--algo', type=str, default='random',
-            help='One of random, q-table, dqn (Deep Q-Network), or ac (Actor-Critic). Default: random')
+            help='One of q-table, dqn (Deep Q-Network), or a3c (Asynchronous Advantage Actor-Critic). Default: random')
     parser.add_argument('--balls', type=int, default=2,
             help='Number of balls on table (including white ball), should be >= 2. Default: 2')
     parser.add_argument('--visualize', dest='visualize', action='store_true',
@@ -45,11 +45,11 @@ if __name__ == '__main__':
     elif args.algo == 'dqn':
         choose_action = dqn.choose_action
         is_discrete = False
-    elif args.algo == 'ac':
-        choose_action = ac.choose_action
+    elif args.algo == 'a3c':
+        choose_action = a3c.choose_action
         is_discrete = False
     else:
-        print('Algorithm not supported! Should be one of random, q-table, dqn, or ac.')
+        print('Algorithm not supported! Should be one of random, q-table, dqn, or a3c.')
         sys.exit(1)
 
     env = PoolEnv(args.balls, is_discrete=is_discrete, visualize=args.visualize)
