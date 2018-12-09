@@ -11,7 +11,10 @@ class Net(nn.Module):
 
         self.s_dim = s_dim
         self.a_dim = a_dim
-        self.action_ranges = [(mn * scale, mx * scale) for mn, mx in action_ranges] # scale up for more efficient learning
+        if action_ranges is not None:
+            self.action_ranges = [(mn * scale, mx * scale) for mn, mx in action_ranges] # scale up for more efficient learning
+        else:
+            self.action_ranges = None
         self.scale = scale
 
         # Actor
@@ -50,7 +53,8 @@ class Net(nn.Module):
         if self.action_ranges is not None:
             for i in range(a.size):
                 a[i] = a[i].clip(*self.action_ranges[i])
-        return a / self.scale
+            a = a / self.scale
+        return a
 
     def loss_func(self, s, a, v_t):
         self.train()
