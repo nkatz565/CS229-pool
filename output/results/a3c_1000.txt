@@ -1,8 +1,3 @@
-pygame 1.9.4
-Hello from the pygame community. https://www.pygame.org/contribute.html
-Actor-Critic training
-pygame 1.9.4
-Hello from the pygame community. https://www.pygame.org/contribute.html
 Episode finished after 25 timesteps, total rewards -24, global rewards -24.0 (g_ep 1), time: 13:37:48.079957
 Episode finished after 25 timesteps, total rewards -24, global rewards -23.902970099999994 (g_ep 5), time: 13:37:50.402304
 Episode finished after 25 timesteps, total rewards -23, global rewards -23.653825685209295 (g_ep 9), time: 13:37:54.089110
@@ -67,8 +62,7 @@ Episode finished after 25 timesteps, total rewards -24, global rewards -22.34951
 Episode finished after 25 timesteps, total rewards -24, global rewards -22.4439555441971 (g_ep 241), time: 13:41:31.738508
 Episode finished after 25 timesteps, total rewards -25, global rewards -22.53497090437311 (g_ep 245), time: 13:41:35.871901
 Episode finished after 25 timesteps, total rewards -25, global rewards -22.6223998962069 (g_ep 249), time: 13:41:40.040516
-Episode finished after 25 timesteps, total rewards -25, global rewards -22.693016996889657 (g_ep 252), time: 13:41:43.854447pygame 1.9.4
-Hello from the pygame community. https://www.pygame.org/contribute.html
+Episode finished after 25 timesteps, total rewards -25, global rewards -22.693016996889657 (g_ep 252), time: 13:41:43.854447
 Episode finished after 25 timesteps, total rewards -24, global rewards -23.901989999999994 (g_ep 4), time: 13:37:48.983128
 Episode finished after 11 timesteps, total rewards -2, global rewards -23.683940398999994 (g_ep 6), time: 13:37:51.130889
 Episode finished after 25 timesteps, total rewards -24, global rewards -23.6572874283572 (g_ep 10), time: 13:37:54.350921
@@ -133,8 +127,7 @@ Episode finished after 25 timesteps, total rewards -25, global rewards -22.37602
 Episode finished after 25 timesteps, total rewards -24, global rewards -22.459515988755125 (g_ep 242), time: 13:41:33.190944
 Episode finished after 25 timesteps, total rewards -24, global rewards -22.54962119532938 (g_ep 246), time: 13:41:37.632386
 Episode finished after 25 timesteps, total rewards -25, global rewards -22.64617589724483 (g_ep 250), time: 13:41:41.932475
-Episode finished after 25 timesteps, total rewards -23, global rewards -22.699125958651553 (g_ep 254), time: 13:41:46.086313pygame 1.9.4
-Hello from the pygame community. https://www.pygame.org/contribute.html
+Episode finished after 25 timesteps, total rewards -23, global rewards -22.699125958651553 (g_ep 254), time: 13:41:46.086313
 Episode finished after 25 timesteps, total rewards -24, global rewards -23.900999999999996 (g_ep 3), time: 13:37:48.782664
 Episode finished after 25 timesteps, total rewards -23, global rewards -23.660429985059892 (g_ep 8), time: 13:37:52.587536
 Episode finished after 25 timesteps, total rewards -23, global rewards -23.548665334447563 (g_ep 13), time: 13:37:56.367036
@@ -199,8 +192,7 @@ Episode finished after 25 timesteps, total rewards -25, global rewards -22.48492
 Episode finished after 25 timesteps, total rewards -25, global rewards -22.574124983376084 (g_ep 247), time: 13:41:38.330512
 Episode finished after 25 timesteps, total rewards -25, global rewards -22.669714138272383 (g_ep 251), time: 13:41:42.432141
 Episode finished after 25 timesteps, total rewards -24, global rewards -22.712134699065036 (g_ep 255), time: 13:41:46.697677
-Episode finished after 25 timesteps, total rewards -24, global rewards -22.76297974050442 (g_ep 259), time: 13:41:50.339642pygame 1.9.4
-Hello from the pygame community. https://www.pygame.org/contribute.html
+Episode finished after 25 timesteps, total rewards -24, global rewards -22.76297974050442 (g_ep 259), time: 13:41:50.339642
 Episode finished after 22 timesteps, total rewards -14, global rewards -23.9 (g_ep 2), time: 13:37:48.542058
 Episode finished after 25 timesteps, total rewards -22, global rewards -23.667100995009992 (g_ep 7), time: 13:37:51.906824
 Episode finished after 25 timesteps, total rewards -23, global rewards -23.65071455407363 (g_ep 11), time: 13:37:55.936974
@@ -866,7 +858,6 @@ Episode finished after 25 timesteps, total rewards -25, global rewards -24.52346
 Episode finished after 25 timesteps, total rewards -24, global rewards -24.52295154443099 (g_ep 992), time: 13:53:44.312829
 Episode finished after 25 timesteps, total rewards -25, global rewards -24.541749157003743 (g_ep 996), time: 13:53:47.565897
 Episode finished after 25 timesteps, total rewards -25, global rewards -24.559806068638657 (g_ep 1000), time: 13:53:50.579021
-
 Episode finished after 25 timesteps, total rewards -25, global rewards -23.85701835985734 (g_ep 791), time: 13:50:49.344939
 Episode finished after 25 timesteps, total rewards -24, global rewards -23.903035833005948 (g_ep 796), time: 13:50:52.845624
 Episode finished after 25 timesteps, total rewards -25, global rewards -23.93645959807254 (g_ep 800), time: 13:50:57.025425
@@ -915,7 +906,6 @@ Episode finished after 25 timesteps, total rewards -25, global rewards -24.51379
 Episode finished after 25 timesteps, total rewards -25, global rewards -24.527722028986677 (g_ep 993), time: 13:53:45.109698
 Episode finished after 25 timesteps, total rewards -25, global rewards -24.546331665433705 (g_ep 997), time: 13:53:47.975802
 Episode finished after 25 timesteps, total rewards -25, global rewards -24.56420800795227 (g_ep 1001), time: 13:53:51.610100
-
 Episode finished after 25 timesteps, total rewards -25, global rewards -23.968047811550186 (g_ep 803), time: 13:51:00.635901
 Episode finished after 25 timesteps, total rewards -24, global rewards -24.00862373681169 (g_ep 808), time: 13:51:04.376216
 Episode finished after 25 timesteps, total rewards -25, global rewards -24.038068603204643 (g_ep 811), time: 13:51:08.151623
@@ -962,7 +952,6 @@ Episode finished after 25 timesteps, total rewards -25, global rewards -24.51865
 Episode finished after 25 timesteps, total rewards -25, global rewards -24.53244480869681 (g_ep 994), time: 13:53:45.146598
 Episode finished after 25 timesteps, total rewards -25, global rewards -24.550868348779368 (g_ep 998), time: 13:53:48.243087
 Episode finished after 25 timesteps, total rewards -25, global rewards -24.568565927872747 (g_ep 1002), time: 13:53:51.675924
-
 Episode finished after 25 timesteps, total rewards -25, global rewards -23.868448176258767 (g_ep 792), time: 13:50:49.420736
 Episode finished after 25 timesteps, total rewards -25, global rewards -23.902056396975706 (g_ep 795), time: 13:50:52.565374
 Episode finished after 25 timesteps, total rewards -24, global rewards -23.91486541992913 (g_ep 798), time: 13:50:55.900456
