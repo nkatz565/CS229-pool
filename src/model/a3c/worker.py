@@ -74,7 +74,7 @@ class Worker(mp.Process):
 
                 if done:
                     record(self.g_ep, self.g_ep_r, rewards)
-                    print('Episode finished after {} timesteps, total rewards {}, global rewards {} (g_ep {}), time: {}'.format(t+1, rewards, self.g_ep_r.value, self.g_ep.value, datetime.datetime.now().time()))
+                    print('Episode finished after {} timesteps, total rewards {}, global rewards {} (g_ep {}), action: {}, time: {}'.format(t+1, rewards, self.g_ep_r.value, self.g_ep.value, a, datetime.datetime.now().time()))
                     if self.model_path is not None:
                         self.gnet.save(self.model_path)
                     break
