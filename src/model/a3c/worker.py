@@ -16,7 +16,7 @@ def norm(v, max_v, min_v):
     return (v - (max_v + min_v) / 2) / (max_v - min_v)
 
 class Worker(mp.Process):
-    def __init__(self, gnet, opt, global_ep, global_ep_r, name, env_params, HIDDEN_DIM, episodes, episode_length):
+    def __init__(self, gnet, opt, global_ep, global_ep_r, name, env_params, HIDDEN_DIM, episodes, episode_length, save_model=None):
         super().__init__()
 
         self.debug_name = name
@@ -31,6 +31,8 @@ class Worker(mp.Process):
         self.global_ep_r = global_ep_r
 
         self.gamma = 0.8 # reward discount factor
+
+        self.save_model = save_model
         
     def run(self):
         env = PoolEnv(**self.env_params)
@@ -65,3 +67,5 @@ class Worker(mp.Process):
                 if done:
                     print('Episode finished after {} timesteps, total rewards {} (worker {})'.format(t+1, rewards, self.debug_name))
                     break
+            if self.save_model is not None:
+                self.save_model(self.gnet)
