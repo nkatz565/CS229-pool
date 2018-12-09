@@ -127,11 +127,23 @@ class PoolEnv:
         # Representing a table of (w, h) size
         self.state_space = StateSpace(num_balls, [1000, 1000])
 
+        # Reward
+        self.ball_in_reward = 5
+        self.no_collision_penalty = -1
+
         # Init
         self.current_obs = None
         self.current_state = None
         self.gamestate = None
         self.reset()
+
+    @property
+    def max_reward(self):
+        return self.num_balls * self.ball_in_reward
+
+    @property
+    def min_reward(self):
+        return self.no_collision_penalty
 
     def set_buckets(self, action=None, state=None):
         if action is not None:
@@ -152,5 +164,5 @@ class PoolEnv:
 
         self.current_obs = ball_pos
         self.current_state = self.state_space.get_state(ball_pos)
-        reward = 5 * holes_in + (0 if collision_count > 0 else -1)
+        reward = self.ball_in_reward * holes_in + (0 if collision_count > 0 else self.no_collision_penalty)
         return self.current_state, reward, done
