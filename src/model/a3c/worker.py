@@ -2,24 +2,17 @@ import torch
 import torch.multiprocessing as mp
 import datetime
 
-from .utils import v_wrap, set_init, push_and_pull, record
+from .utils import v_wrap, set_init, push_and_pull, record, norm
 from .net import Net
 from ..env import PoolEnv
 
 
 GLOBAL_UPDATE_RATE = 5 # the network will sync with the global network every X iterations
 
-def to_tensor(s):
-    """Wraps a state representation into flat tensor"""
-    return torch.tensor(s).float().view(-1)
-
 def norm_state(s, w, h):
     s[::2] /= w
     s[1::2] /= h
     return s
-
-def norm(v, max_v, min_v):
-    return (v - (max_v + min_v) / 2) / (max_v - min_v)
 
 class Worker(mp.Process):
     def __init__(self, gnet, opt, global_ep, global_ep_r, name, env_params, HIDDEN_DIM, episodes, episode_length, model_path=None):
@@ -51,8 +44,7 @@ class Worker(mp.Process):
             rewards = 0 # accumulate rewards for each episode
             done = False
             for t in range(self.episode_length):
-                # Agent takes action using epsilon-greedy algorithm, get reward
-                action = self.lnet.choose_action(to_tensor(state))
+                action = self.lnet.choose_action(v_wrap(state[None, :]))
                 a = self.lnet.clip_action(action)
                 next_state, reward, done = env.step(a)
                 next_state = norm_state(next_state, env.state_space.w, env.state_space.h)

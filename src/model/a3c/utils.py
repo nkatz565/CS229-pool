@@ -48,3 +48,9 @@ def record(global_ep, global_ep_r, ep_r):
             global_ep_r.value = ep_r
         else:
             global_ep_r.value = global_ep_r.value * 0.99 + ep_r * 0.01
+
+def norm(v, max_v, min_v):
+    return (v - (max_v + min_v) / 2) / (max_v - min_v)
+
+def ratio(v, max_v, min_v):
+    return (v - min_v) / (max_v - min_v)
