@@ -70,3 +70,6 @@ class Net(nn.Module):
         entropy = -m.entropy() # for exploration
         total_loss = (a_loss + c_loss + 0.005 * entropy).mean()
         return total_loss
+
+    def save(self, model_path):
+        torch.save(self.state_dict(), model_path)
