@@ -37,7 +37,7 @@ def train(env_params, model_path, episodes=200, episode_length=50):
 
     # Parallel training
     workers = [Worker(gnet, opt, global_ep, global_ep_r, i, env_params, HIDDEN_DIM, episodes, episode_length, model_path)
-               for i in range(mp.cpu_count() - 1)]
+               for i in range(mp.cpu_count() // 2)]
     for w in workers:
         w.start()
     for w in workers:
