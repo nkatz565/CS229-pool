@@ -7,7 +7,7 @@ from .dqn import dqn
 from .a3c import a3c
 
 
-EPISODES = 2
+EPISODES = 200
 EPISODE_LENGTH = 25
 
 if __name__ == '__main__':
