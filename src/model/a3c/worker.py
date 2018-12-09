@@ -34,7 +34,7 @@ class Worker(mp.Process):
         
     def run(self):
         env = PoolEnv(**self.env_params)
-        self.lnet = Net(env.state_space.n, env.action_space.n, self.HIDDEN_DIM)
+        self.lnet = Net(env.state_space.n, env.action_space.n, self.HIDDEN_DIM, action_ranges=env.action_space.ranges)
 
         total_steps = 1
         while self.global_ep.value < self.episodes:
@@ -44,7 +44,7 @@ class Worker(mp.Process):
             done = False
             for t in range(self.episode_length):
                 # Agent takes action using epsilon-greedy algorithm, get reward
-                action = self.lnet.choose_action(to_tensor(state), ranges=env.action_space.ranges)
+                action = self.lnet.choose_action(to_tensor(state))
                 next_state, reward, done = env.step(action)
                 rewards += reward
                 done = done or t == self.episode_length - 1

@@ -10,9 +10,14 @@ def choose_action(state, q_table, action_space, epsilon=0.1):
     else: # greedy action based on Q table
         return [np.argmax(q_table[i][state]) for i in range(len(q_table))]
 
-def save_model(filepath, q_table):
+def save_model(filepath, model):
     with open(filepath, 'wb') as fout:
-        pickle.dump(q_table, fout)
+        pickle.dump(model, fout)
+
+def load_model(filepath):
+    with open(filepath, 'rb') as fin:
+        model = pickle.load(fin)
+    return model
 
 def train(env, model_path, episodes=200, episode_length=50):
     print('Q-Table training')

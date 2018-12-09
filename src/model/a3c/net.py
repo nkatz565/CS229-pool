@@ -6,11 +6,12 @@ from .utils import set_init
 
 
 class Net(nn.Module):
-    def __init__(self, s_dim, a_dim, h_dim):
+    def __init__(self, s_dim, a_dim, h_dim, action_ranges=None):
         super().__init__()
 
         self.s_dim = s_dim
         self.a_dim = a_dim
+        self.action_ranges = action_ranges
 
         # Actor
         self.a1 = nn.Linear(s_dim, h_dim)
@@ -24,6 +25,9 @@ class Net(nn.Module):
         set_init([self.a1, self.mu, self.sigma, self.c1, self.v])
         self.distribution = torch.distributions.Normal
 
+    def set_action_ranges(self, action_ranges):
+        self.action_ranges = action_ranges
+
     def forward(self, x):
         a1 = F.relu(self.a1(x))
         # TODO: not sure if using sigmoid to compress the range is a good idea, since 0 and 1 are unapproachable values
@@ -35,14 +39,14 @@ class Net(nn.Module):
 
         return mu, sigma, values
 
-    def choose_action(self, s, ranges=None):
+    def choose_action(self, s):
         self.train(False)
         mu, sigma, _ = self.forward(s)
         m = self.distribution(mu, sigma)
         a = m.sample().numpy()
 
         # Clip value
-        if ranges is not None:
+        if self.action_ranges is not None:
             for i in range(a.size):
                 a[i] = a[i].clip(*ranges[i])
         return a
