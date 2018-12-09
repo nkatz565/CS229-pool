@@ -65,9 +65,11 @@ class GameState:
 
     def game_event_handler(self, event):
         if event.type == "POTTED":
-            #self.table_coloring.update(self)
+            if self.visualize:
+                self.table_coloring.update(self)
             self.balls.remove(event.data)
-            #self.all_sprites.remove(event.data)
+            if self.visualize:
+                self.all_sprites.remove(event.data)
             self.potted.append(event.data.number)
         elif event.type == "COLLISION":
             self.collision_count += 1
@@ -370,14 +372,18 @@ class GameState:
         game.cue.ball_hit()
         num_steps = 0
         while (not game.all_not_moving()):
-            #events = event.events()
+            if self.visualize:
+                events = event.events()
             collisions.resolve_all_collisions(game.balls, game.holes, game.table_sides)
-            #game.redraw_all()
-            for ball in game.balls:
-                ball.update()
+            if self.visualize:
+                game.redraw_all()
+            else:
+                for ball in game.balls:
+                    if (ball.ball.velocity[0]**2 + ball.ball.velocity[1]**2) != 0:
+                        ball.ball.update()
             num_steps += 1
         game.check_pool_rules()
-        print('Num steps was ' + str(num_steps))
+        #print('Num steps was ' + str(num_steps))
 
         new_pos = self.return_ball_state()
         balls_in = len(original_pos) - len(new_pos)

@@ -97,7 +97,7 @@ class BallSprite(pygame.sprite.Sprite):
         #print('test1')
         if (self.ball.velocity[0]**2 + self.ball.velocity[1]**2) != 0:
 
-            #self.update_sprite()
+            self.update_sprite()
             self.ball.update()
 
     '''def update(self, *args):

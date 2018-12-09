@@ -8,16 +8,37 @@ import torch
 def save_model(filepath, model):
     torch.save(model.qnetwork_local.state_dict(), filepath)
 
+def load_model(modelpath, model_params):
+    state_size = model_params['s_dim']
+    #print('State size is ' + str(state_size))
+    action_buckets = model_params['buckets']
+    #print('Action buckets are ' + str(action_buckets))
+    action_size = action_buckets[0] * action_buckets[1]
+    #print('Action size is ' + str(action_size))
+
+    agent = dqn_agent.Agent(state_size, action_size, seed = 229)
+    agent.qnetwork_local.load_state_dict(torch.load(modelpath))
+
+    return agent
+
+
 def action_to_tuple(action, action_buckets):
-    return(float(int(action) % action_buckets[0]) * 1/float(action_buckets[0]),\
-        int(action/action_buckets[0]) * 1/float(action_buckets[1]))
+    #print('Action buckets are ' + str(action_buckets))
+    return(float(int(action) % action_buckets[0]),\
+        int(action/action_buckets[0]))
+
+def choose_action(state, model, action_space, epsilon = 0.):
+    action = action_to_tuple(model.act(state, epsilon), action_space.buckets)
+    #print('action was ' + str(action))
+    return action
 
 def train(env, model_path, episodes=200, episode_length=50):
     print('DQN training')
 
     # Initialize DQN Agent
     state_size = env.state_space.n
-    action_buckets = (360, 5)
+    action_buckets = [360, 5]
+    env.set_buckets(action=[360, 5])
     action_size = action_buckets[0] * action_buckets[1]
 
     agent = dqn_agent.Agent(state_size, action_size, seed = 229)
@@ -38,6 +59,7 @@ def train(env, model_path, episodes=200, episode_length=50):
         for t in range(episode_length):
             # Agent takes action using epsilon-greedy algorithm, get reward
             print('Episode ' + str(i_episode))
+            print('Iter ' + str(t))
             action = agent.act(state, epsilon)
             print('The action number is ' + str(action))
             print('The action is ' + str(action_to_tuple(action, action_buckets)))

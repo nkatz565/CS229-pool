@@ -8,7 +8,7 @@ from .dqn import dqn
 from .a3c import a3c
 
 
-EPISODES = 10 
+EPISODES = 10
 EPISODE_LENGTH = 200
 
 if __name__ == '__main__':
@@ -37,8 +37,11 @@ if __name__ == '__main__':
         model = q_table.load_model(args.model)
     elif args.algo == 'dqn':
         choose_action = dqn.choose_action
-        # TODO
-        # model = dqn.load_model(args.model, ...)
+        env.set_buckets(action=[360, 5])
+        model_params = { 's_dim': env.state_space.n,
+                         'a_dim': env.action_space.n,
+                         'buckets': env.action_space.buckets,}
+        model = dqn.load_model(args.model, model_params)
     elif args.algo == 'a3c':
         choose_action = a3c.choose_action
         model_params = { 's_dim': env.state_space.n,
