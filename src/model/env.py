@@ -139,6 +139,7 @@ class PoolEnv:
 
     @property
     def max_reward(self):
+        # Small bug here, should be (self.num_balls - 1) * self.ball_in_reward, but doesn't matter
         return self.num_balls * self.ball_in_reward
 
     @property
