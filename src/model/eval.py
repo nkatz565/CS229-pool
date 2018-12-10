@@ -28,7 +28,7 @@ if __name__ == '__main__':
         print('Number of balls should be >= 2.')
         sys.exit(1)
 
-    env = PoolEnv(args.balls, is_discrete=False, visualize=args.visualize)
+    env = PoolEnv(args.balls, visualize=args.visualize)
     model = None
     if args.algo == 'random':
         choose_action = lambda state, model, action_space: action_space.sample()
