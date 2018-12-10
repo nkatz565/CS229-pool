@@ -98,4 +98,4 @@ Episode finished after 25 timesteps, total rewards -22
 Episode finished after 25 timesteps, total rewards -23
 Episode finished after 21 timesteps, total rewards -13
 Episode finished after 25 timesteps, total rewards -21
-Average rewards: -0.7986539741648104
+Average rewards: -19.44
