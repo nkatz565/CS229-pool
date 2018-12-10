@@ -26,6 +26,7 @@ def save_model(filepath, model):
 def load_model(filepath, model_params):
     model = Net(**model_params)
     model.load_state_dict(torch.load(filepath))
+    return model
 
 def train(env_params, model_path, episodes=200, episode_length=50):
     print('Actor-Critic training')
