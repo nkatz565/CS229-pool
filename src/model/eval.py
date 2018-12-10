@@ -41,7 +41,7 @@ if __name__ == '__main__':
         env.set_buckets(action=[360, 5])
         model_params = { 's_dim': env.state_space.n,
                          'a_dim': env.action_space.n,
-                         'buckets': env.action_space.buckets,}
+                         'buckets': env.action_space.buckets}
         model = dqn.load_model(args.model, model_params)
     elif args.algo == 'a3c':
         choose_action = lambda s, m, a_s: a3c.choose_action(s, m, a_s, env.state_space.w, env.state_space.h)
@@ -55,8 +55,7 @@ if __name__ == '__main__':
         env.set_buckets(action=[60, 1])
         model_params = { 's_dim': env.state_space.n,
                          'a_dim': env.action_space.n,
-                         'h_dim': a3c_discrete.HIDDEN_DIM,
-                         'action_ranges': env.action_space.ranges}
+                         'h_dim': a3c_discrete.HIDDEN_DIM}
         model = a3c_discrete.load_model(args.model, model_params)
     else:
         print('Algorithm not supported! Should be one of random, q-table, dqn, or a3c.')
