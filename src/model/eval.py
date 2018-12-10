@@ -52,7 +52,7 @@ if __name__ == '__main__':
         model = a3c.load_model(args.model, model_params)
     elif args.algo == 'a3c-discrete':
         choose_action = lambda s, m, a_s: a3c_discrete.choose_action(s, m, a_s, env.state_space.w, env.state_space.h)
-        env.set_buckets(action=[60, 1])
+        env.set_buckets(action=[360, 1])
         model_params = { 's_dim': env.state_space.n,
                          'a_dim': env.action_space.n,
                          'h_dim': a3c_discrete.HIDDEN_DIM}
