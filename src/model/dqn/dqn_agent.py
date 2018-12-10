@@ -67,13 +67,19 @@ class Agent():
         state = torch.from_numpy(state).float().unsqueeze(0).to(device)
         self.qnetwork_local.eval()
         with torch.no_grad():
-            action_values = self.qnetwork_local(state)
+            action_values = self.qnetwork_local.probs(state)
+            #print(list(action_values.cpu().data.numpy())[0])
         self.qnetwork_local.train()
+
+        action_values = list(action_values.cpu().data.numpy())[0]
+        #action_values = [float(i)/sum(action_values) for i in action_values]
+        #print(action_values)
+
 
         # Epsilon-greedy action selection
         if random.random() > eps:
             #print('Most optimal action.')
-            return np.argmax(action_values.cpu().data.numpy())
+            return np.random.choice(np.arange(self.action_size), p=action_values)
         else:
             return random.choice(np.arange(self.action_size))
 
