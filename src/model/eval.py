@@ -8,8 +8,8 @@ from .dqn import dqn
 from .a3c import a3c
 
 
-EPISODES = 10
-EPISODE_LENGTH = 200
+EPISODES = 1000
+EPISODE_LENGTH = 25
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='RL model evaluation.')
