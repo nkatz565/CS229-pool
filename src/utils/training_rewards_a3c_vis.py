@@ -24,6 +24,6 @@ if __name__ == '__main__':
     
     fig, ax = plt.subplots()
     ax.plot(x, y)
-    ax.set(xlabel='episode', ylabel='avg rewards', title='Avg. Rewards Trend')
+    ax.set(xlabel='episode', ylabel='avg rewards', title='Avg. Rewards Trend (exponential moving average')
 
     fig.savefig(output_file)
