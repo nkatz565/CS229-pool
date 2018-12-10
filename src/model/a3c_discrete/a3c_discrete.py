@@ -18,7 +18,7 @@ ACTION_BUCKETS = [360, 1]
 
 def choose_action(state, model, action_space, w, h):
     s = norm_state(state, w, h)
-    return model.clip_action(model.choose_action(v_wrap(s[None, :])))
+    return model.choose_action(v_wrap(s[None, :]))
 
 def save_model(filepath, model):
     torch.save(model.state_dict(), filepath)
