@@ -9,7 +9,7 @@ from .a3c import a3c
 from .a3c_discrete import a3c_discrete
 
 
-EPISODES = 1000
+EPISODES = 100
 EPISODE_LENGTH = 25
 
 if __name__ == '__main__':
