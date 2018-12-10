@@ -115,7 +115,7 @@ class StateSpace:
             return encoded_state
 
 class PoolEnv:
-    def __init__(self, num_balls=2, is_discrete=True, visualize=False):
+    def __init__(self, num_balls=2, visualize=False):
         self.num_balls = num_balls
         self.visualize = visualize
 

@@ -15,11 +15,12 @@ def norm_state(s, w, h):
     return s
 
 class Worker(mp.Process):
-    def __init__(self, gnet, opt, global_ep, global_ep_r, name, env_params, HIDDEN_DIM, episodes, episode_length, model_path=None):
+    def __init__(self, gnet, opt, global_ep, global_ep_r, name, env_params, action_buckets, HIDDEN_DIM, episodes, episode_length, model_path=None):
         super().__init__()
 
         self.debug_name = name
         self.env_params = env_params
+        self.action_buckets = action_buckets
         self.HIDDEN_DIM = HIDDEN_DIM
         self.gnet = gnet
         self.opt = opt
@@ -35,7 +36,8 @@ class Worker(mp.Process):
         
     def run(self):
         env = PoolEnv(**self.env_params)
-        self.lnet = Net(env.state_space.n, env.action_space.n, self.HIDDEN_DIM, action_ranges=env.action_space.ranges)
+        env.set_buckets(action=self.action_buckets)
+        self.lnet = Net(env.state_space.n, env.action_space.n, self.HIDDEN_DIM)
 
         total_steps = 1
         while self.g_ep.value < self.episodes:
@@ -45,8 +47,7 @@ class Worker(mp.Process):
             done = False
             for t in range(self.episode_length):
                 action = self.lnet.choose_action(v_wrap(state[None, :]))
-                a = self.lnet.clip_action(action)
-                next_state, reward, done = env.step(a)
+                next_state, reward, done = env.step(action)
                 next_state = norm_state(next_state, env.state_space.w, env.state_space.h)
                 rewards += reward
                 done = done or t == self.episode_length - 1
@@ -66,7 +67,7 @@ class Worker(mp.Process):
 
                 if done:
                     record(self.g_ep, self.g_ep_r, rewards)
-                    print('Episode finished after {} timesteps, total rewards {}, global rewards {} (g_ep {}), action: {}, time: {}'.format(t+1, rewards, self.g_ep_r.value, self.g_ep.value, a, datetime.datetime.now().time()))
+                    print('Episode finished after {} timesteps, total rewards {}, global rewards {} (g_ep {}), action: {}, time: {}'.format(t+1, rewards, self.g_ep_r.value, self.g_ep.value, action, datetime.datetime.now().time()))
                     if self.model_path is not None:
                         self.gnet.save(self.model_path)
                     break

@@ -6,6 +6,7 @@ from .env import PoolEnv
 from .q_table import q_table
 from .dqn import dqn
 from .a3c import a3c
+from .a3c_discrete import a3c_discrete
 
 
 EPISODES = 1000
@@ -16,7 +17,7 @@ if __name__ == '__main__':
     parser.add_argument('--model', type=str, default='model.pkl',
             help='Input model path. Default: model.pkl')
     parser.add_argument('--algo', type=str, default='random',
-            help='One of q-table, dqn (Deep Q-Network), or a3c (Asynchronous Advantage Actor-Critic). Default: random')
+            help='One of q-table, dqn (Deep Q-Network), a3c (Asynchronous Advantage Actor-Critic), or a3c-discrete. Default: random')
     parser.add_argument('--balls', type=int, default=2,
             help='Number of balls on table (including white ball), should be >= 2. Default: 2')
     parser.add_argument('--visualize', dest='visualize', action='store_true',
@@ -49,6 +50,14 @@ if __name__ == '__main__':
                          'h_dim': a3c.HIDDEN_DIM,
                          'action_ranges': env.action_space.ranges}
         model = a3c.load_model(args.model, model_params)
+    elif args.algo == 'a3c-discrete':
+        choose_action = lambda s, m, a_s: a3c_discrete.choose_action(s, m, a_s, env.state_space.w, env.state_space.h)
+        env.set_buckets(action=[60, 1])
+        model_params = { 's_dim': env.state_space.n,
+                         'a_dim': env.action_space.n,
+                         'h_dim': a3c_discrete.HIDDEN_DIM,
+                         'action_ranges': env.action_space.ranges}
+        model = a3c_discrete.load_model(args.model, model_params)
     else:
         print('Algorithm not supported! Should be one of random, q-table, dqn, or a3c.')
         sys.exit(1)
