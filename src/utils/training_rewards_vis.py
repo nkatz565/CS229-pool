@@ -16,8 +16,8 @@ if __name__ == '__main__':
     with open(input_file, 'r') as fin:
         for line in fin:
             split_line = line.strip().split(' ')
-            timesteps, total_rewards = int(split_line[3]), int(split_line[7])
-            y += [total_rewards / timesteps]
+            timesteps, rewards = int(split_line[3]), int(split_line[7])
+            y += [rewards]
     x = list(range(len(y)))
     
     fig, ax = plt.subplots()
