@@ -1,0 +1,6 @@
+Q tables: 2 hours and 16 minutes  1.12gb
+A3C continuous: 13 minutes 8kb
+A3C discrete: 17 minutes 149kb
+
+AC3 4 balls: 23 minutes  11kb
+AC3 discrete 4 balls: 29 minutes  152kb
