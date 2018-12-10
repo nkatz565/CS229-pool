@@ -1,5 +1,3 @@
-pygame 1.9.4
-Hello from the pygame community. https://www.pygame.org/contribute.html
 Episode finished after 3 timesteps, total rewards 3
 Episode finished after 25 timesteps, total rewards -21
 Episode finished after 25 timesteps, total rewards -24
