@@ -74,9 +74,9 @@ if __name__ == '__main__':
 
             if done:
                 print('Episode finished after {} timesteps, total rewards {}'.format(t+1, rewards))
-                total_rewards += rewards / (t + 1)
+                total_rewards += rewards
                 break
         if not done:
             print('Episode finished after {} timesteps, total rewards {}'.format(EPISODE_LENGTH, rewards))
-            total_rewards += rewards / EPISODE_LENGTH
+            total_rewards += rewards
     print('Average rewards: {}'.format(total_rewards / EPISODES))
