@@ -1,5 +1,3 @@
-pygame 1.9.4
-Hello from the pygame community. https://www.pygame.org/contribute.html
 Episode finished after 50 timesteps, total rewards -35
 Episode finished after 50 timesteps, total rewards -44
 Episode finished after 50 timesteps, total rewards -40
@@ -1000,7 +998,4 @@ Episode finished after 50 timesteps, total rewards -40
 Episode finished after 50 timesteps, total rewards -42
 Episode finished after 50 timesteps, total rewards -31
 Episode finished after 50 timesteps, total rewards -36
-Average rewards: -0.8205686956521747
-[0x7FF9784BB040] ANOMALY: use of REX.w is meaningless (default operand size is 64)
-[0x7FF9784B2F90] ANOMALY: meaningless REX prefix used
-[0x7FF9784B2080] ANOMALY: meaningless REX prefix used
+Average rewards: -41.024
